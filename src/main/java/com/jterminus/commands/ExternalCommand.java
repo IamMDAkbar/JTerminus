@@ -42,18 +42,42 @@ public class ExternalCommand implements Command {
 
             Process process = pb.start();
 
+            // Read output with a line cap to prevent huge memory usage
+            final int MAX_LINES = 5000;
+            int lineCount = 0;
+            boolean truncated = false;
             StringBuilder output = new StringBuilder();
+
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    output.append(line).append("\n");
+                    if (lineCount < MAX_LINES) {
+                        output.append(line).append("\n");
+                        lineCount++;
+                    } else {
+                        truncated = true;
+                        // Drain remaining output to prevent blocking
+                        while (reader.readLine() != null) {
+                            lineCount++;
+                        }
+                        break;
+                    }
                 }
             }
 
-            boolean finished = process.waitFor(30, TimeUnit.SECONDS);
+            boolean finished = process.waitFor(15, TimeUnit.SECONDS);
             if (!finished) {
                 process.destroyForcibly();
-                return CommandResult.error("Command timed out after 30 seconds");
+                String partial = output.toString().stripTrailing();
+                if (!partial.isEmpty()) {
+                    return CommandResult.error(partial + "\n\n[Command timed out after 15 seconds]");
+                }
+                return CommandResult.error("Command timed out after 15 seconds");
+            }
+
+            if (truncated) {
+                output.append("\n... (output truncated — showed ")
+                      .append(MAX_LINES).append(" of ").append(lineCount).append(" lines)");
             }
 
             int exitCode = process.exitValue();
