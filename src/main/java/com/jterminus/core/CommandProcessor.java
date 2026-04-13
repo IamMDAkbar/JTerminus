@@ -55,6 +55,17 @@ public class CommandProcessor {
         registerCommand(new WhoamiCommand());
         registerCommand(new HostnameCommand());
         registerCommand(new ExitCommand());
+        
+        // Additional Linux commands
+        registerCommand(new WcCommand());
+        registerCommand(new SortCommand());
+        registerCommand(new UniqCommand());
+        registerCommand(new DiffCommand());
+        registerCommand(new WhichCommand());
+        registerCommand(new TrCommand());
+        registerCommand(new CutCommand());
+        registerCommand(new LnCommand());
+        registerCommand(new TeeCommand());
 
         // Help command needs reference to command map
         commands.put("help", new HelpCommand(commands));

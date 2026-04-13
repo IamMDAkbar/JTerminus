@@ -64,7 +64,29 @@ public class MainFrame extends JFrame {
     }
 
     private Image createAppIcon() {
-        // Create a simple gradient icon
+        try {
+            // Load PNG icon from resources - better compatibility
+            var resource = getClass().getResource("/icons/app-icon.png");
+            if (resource != null) {
+                var icon = new ImageIcon(resource);
+                return icon.getImage();
+            }
+        } catch (Exception e) {
+            System.err.println("Warning: Could not load PNG icon from resources: " + e.getMessage());
+        }
+        
+        try {
+            // Fallback to ICO if PNG not available
+            var resource = getClass().getResource("/icons/app-icon.ico");
+            if (resource != null) {
+                var icon = new ImageIcon(resource);
+                return icon.getImage();
+            }
+        } catch (Exception e) {
+            System.err.println("Warning: Could not load ICO icon from resources: " + e.getMessage());
+        }
+        
+        // Fallback: Create a simple gradient icon programmatically
         int size = 64;
         java.awt.image.BufferedImage img = new java.awt.image.BufferedImage(size, size, java.awt.image.BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = img.createGraphics();
@@ -75,7 +97,7 @@ public class MainFrame extends JFrame {
         g2.setPaint(gp);
         g2.fillRoundRect(4, 4, size - 8, size - 8, 16, 16);
 
-        // Terminal prompt symbol  >_
+        // Terminal prompt symbol >_
         g2.setColor(new Color(0x1E1E2E));
         g2.setFont(new Font("Consolas", Font.BOLD, 30));
         g2.drawString(">_", 12, 44);

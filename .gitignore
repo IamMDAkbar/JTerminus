@@ -1,6 +1,52 @@
+# Maven build artifacts
 target/
-release/
-*.class
 *.jar
+*.war
+*.zip
+dependency-reduced-pom.xml
+
+# IDE files
 .idea/
+.vscode/
 *.iml
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Compiled Java classes
+*.class
+*.ctxt
+
+# Build directories (generated during build)
+dist/
+installer-output/
+release/
+build/
+out/
+
+# Generated images and temporary files
+*.png
+jterminus-app.*
+create-app-icon.ps1
+setup-icon.ps1
+generate-icon.ps1
+
+# Environment and log files
+*.log
+.env
+.classpath
+.project
+.settings/
+
+# OS-specific files
+Thumbs.db
+.DS_Store
+*.tmp
+
+# IDE temporary files
+.gradle/
+.m2/
+.mvn/
+node_modules/
+
