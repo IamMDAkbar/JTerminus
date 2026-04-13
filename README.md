@@ -6,7 +6,7 @@
 ![License](https://img.shields.io/badge/License-MIT-purple?style=for-the-badge)
 ![Build](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge&logo=maven)
 
-![JTerminus Screenshot](https://via.placeholder.com/800x500/1E1E2E/CDD6F4?text=JTerminus+Multi-Shell+Terminal+Interface)
+![JTerminus Screenshot]([https://via.placeholder.com/800x500/1E1E2E/CDD6F4?text=JTerminus+Multi-Shell+Terminal+Interface](https://res.cloudinary.com/dstx1zcsk/image/upload/v1776098409/t0ez3xazilb1hrrlncfk.png))
 
 A powerful multi-shell CLI desktop application built with Java Swing and FlatLaf, providing a modern terminal experience with support for multiple shell environments.
 
